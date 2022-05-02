@@ -5,4 +5,4 @@ wb = xlrd.open_workbook(filename=file)
 sheet2 = wb.sheet_by_index(0)
 
 #checkCmd = dataCheck(sheet2)
-mainWork(sheet1 = sheet2)
+mainWork(sheet1 = sheet2 , utlaName = "control" , isUtil = True)

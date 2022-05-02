@@ -114,7 +114,7 @@ def readLog(logTxt):
     os._exit()
 
 #任务
-def mainWork( sheet1):
+def mainWork(sheet1 ,utlaName='', isUtil= False):
     # 隐藏doc
     # f = open(os.path.abspath(os.path.join(os.getcwd(), "../.."))+"/0-common/隐藏自动处理窗口.txt", "r")  # 设置文件对象
     # str = f.read()  # 将txt文件的所有内容读入到字符串str中
@@ -125,13 +125,15 @@ def mainWork( sheet1):
 
     # mouseClick(1, "left", "0.png", 1)
 
-    k = 1
-    while k < sheet1.nrows:
-        print(sheet1.row(k)[0],sheet1.row(k)[1],sheet1.row(k)[2])
-        k+=1
+    #输出表格内容
+    # k = 1
+    # while k < sheet1.nrows:
+    #     print(sheet1.row(k)[0],sheet1.row(k)[1],sheet1.row(k)[2])
+    #     k+=1
+
+    utilImgUrl = "D:\\13-auto\\0-common\\"+utlaName+"\\"
 
     # 开始执行表格数据读取
-
     i = 1
     while i < sheet1.nrows:
         #取本行指令的操作类型
@@ -139,6 +141,9 @@ def mainWork( sheet1):
         if cmdType.value == 1.0:
             #取图片名称
             img = sheet1.row(i)[1].value
+            # 判定是否为公用方法里的参数
+            if isUtil:
+                img = utilImgUrl+img
             reTry = 1
             if sheet1.row(i)[2].ctype == 2 and sheet1.row(i)[2].value != 0:
                 reTry = sheet1.row(i)[2].value
@@ -148,6 +153,9 @@ def mainWork( sheet1):
         elif cmdType.value == 2.0:
             #取图片名称
             img = sheet1.row(i)[1].value
+            #判定是否为公用方法里的参数
+            if isUtil:
+                img = utilImgUrl+img
             #取重试次数
             reTry = 1
             if sheet1.row(i)[2].ctype == 2 and sheet1.row(i)[2].value != 0:
@@ -158,6 +166,9 @@ def mainWork( sheet1):
         elif cmdType.value == 3.0:
             #取图片名称
             img = sheet1.row(i)[1].value
+            #判定是否为公用方法里的参数
+            if isUtil:
+                img = utilImgUrl+img
             #取重试次数
             reTry = 1
             if sheet1.row(i)[2].ctype == 2 and sheet1.row(i)[2].value != 0:
