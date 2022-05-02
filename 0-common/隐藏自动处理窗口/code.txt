@@ -1,0 +1,3 @@
+#汇总为
+#print( os.path.abspath(os.path.join(os.getcwd(), "../..")) + "\\0-common\\0.png")
+mouseClick(1, "left", os.path.abspath(os.path.join(os.getcwd(), "../..")) + "\\0-common\\0.png", 1)
