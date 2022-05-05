@@ -132,6 +132,8 @@ def mainWork(sheet1 ,utlaName='', isUtil= False):
     #     k+=1
 
     utilImgUrl = "D:\\13-auto\\0-common\\"+utlaName+"\\"
+    #输出sheet1
+
 
     # 开始执行表格数据读取
     i = 1
@@ -220,6 +222,7 @@ if __name__ == '__main__':
     wb = xlrd.open_workbook(filename=file)
     #通过索引获取表格sheet页
     sheetGet = wb.sheet_by_index(0)
+
     #数据检查
     checkCmd = dataCheck(sheetGet)
     print('开始执行程序')
