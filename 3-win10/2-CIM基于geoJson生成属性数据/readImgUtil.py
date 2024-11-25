@@ -32,8 +32,8 @@ def get_location(imgName, confidence=0.9, showLog=True):
     if location is None:
         for i in range(1, 10):
             confidence = confidence - i * 0.1
-            location = pyautogui.locateCenterOnScreen(processed_img, confidence=confidence)
-            # location = pyautogui.locateOnScreen(processed_img, confidence=confidence)
+            # location = pyautogui.locateCenterOnScreen(processed_img, confidence=confidence)
+            location = pyautogui.locateOnScreen(processed_img, confidence=confidence)
             if location is not None:
                 break
 
@@ -89,10 +89,10 @@ confidence = 0.9
 
 print(f'图片的绝对路径: {imgName}')
 
-location = get_location(imgName, confidence)
+location, confidence = get_location(imgName, confidence)
 
 if location:
-    # location = showImageByLocation(imgName, confidence)
+    location = showImageByLocation(imgName, confidence)
     pyautogui.moveTo(location)
     print(f"鼠标已移动到位置: {location}")
 

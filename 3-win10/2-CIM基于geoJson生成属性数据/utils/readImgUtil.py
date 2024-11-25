@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import cv2
 import pyautogui
 import time
@@ -84,10 +85,10 @@ def showImageByLocation(imgName, confidence):
 
 
 # 主程序
-imgName = 'image.png'  # 目标图像文件路径
+imgName = "D:\\test\\image.png"
 confidence = 0.9
 
-print(f'图片的绝对路径: {imgName}')
+print(f'图片路径: {imgName}')
 
 location, confidence = get_location(imgName, confidence)
 

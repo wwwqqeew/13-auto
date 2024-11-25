@@ -4,6 +4,7 @@ import xlrd
 import pyperclip
 import os
 from loguru import logger
+from utils.readImgUtil import get_location
 
 #定义鼠标事件
 

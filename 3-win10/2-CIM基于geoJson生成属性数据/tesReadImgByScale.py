@@ -1,33 +1,32 @@
-import cv2
-import pyautogui
-import time
 from PIL import Image
+import time
+import pyautogui
 
-def preprocess_image(image_path):
-    # 读取图像并转为灰度图
-    img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
-    # 对图像进行二值化处理，增强对比度
-    _, img = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
-    return Image.fromarray(img)
+def resize_image(img_path, scale_factor):
+    img = Image.open(img_path)
+    new_size = (int(img.width * scale_factor), int(img.height * scale_factor))
+    return img.resize(new_size)
 
+# 默认的分辨率
+screen_width, screen_height = 1920, 1080
+# 获取当前平米的分辨率
+screen_width, screen_height = pyautogui.size()
+# 计算缩放比例
+scale_factor = screen_width / 1920
 
-imgName = 'image.png'
-# 输出图片绝对路径
-print('这个是图片的绝对路径',imgName)
-# 预处理图像后再进行匹配
-processed_img = preprocess_image(imgName)
+print('这个是缩放比例', scale_factor , '这个是当前的分辨率', screen_width, screen_height)
+# 使用调整后的图像进行识别
+img_resized = resize_image('image.png', scale_factor)
+location = pyautogui.locateCenterOnScreen(img_resized, confidence=0.9)
 
-location = pyautogui.locateCenterOnScreen(processed_img, confidence=0.9)
-# 如果没有找到目标，location为None，则切换参数confidence的值
 if location is None:
     for i in range(1, 10):
-        location = pyautogui.locateCenterOnScreen(processed_img, confidence=0.9 - i * 0.1)
+        location = pyautogui.locateCenterOnScreen(img_resized, confidence=0.9 - i * 0.1)
         if location is not None:
             break
 if location is None:
     print('没有找到目标')
-print(' 这个是获取的位置',location)
-
+print('这个是获取的位置', location)
 
 pyautogui.moveTo(location)
 
