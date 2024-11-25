@@ -1,13 +1,17 @@
 #!/usr/bin/python3
 # encoding:utf-8
 import flask, json
+from flask import Flask
+from flask_cors import cross_origin
 
 # 实例化api，把当前这个python文件当作一个服务，__name__代表当前这个python文件
 api = flask.Flask(__name__)
-
+app = Flask(__name__)
 
 # 'index'是接口路径，methods不写，默认get请求
+
 @api.route('/index', methods=['get'])
+@cross_origin()
 # get方式访问
 def index():
     # ren = {'msg': '', 'msg_code': 200}
@@ -21,14 +25,42 @@ def index():
     # 输出读取到的数据
 
     # print(f.read())
-    renJson +=f.readlines()
-
+    # renJson =f.readlines()
+    renJson = f.read()
+    # print(renJson)
     # 关闭文件
 
     f.close()
     ren = {'msg': renJson, 'msg_code': 200}
-    return json.dumps(ren, ensure_ascii=False)
+    # return json.dumps(ren, ensure_ascii=False)
+    return  ren
 
+@api.route('/changeData', methods=['post'])
+@cross_origin()
+# get方式访问
+def changeData():
+    # ren = {'msg': '', 'msg_code': 200}
+    renJson = ""
+    # json.dumps 序列化时对中文默认使用的ascii编码.想输出中文需要指定ensure_ascii=False
+    dataCode = flask.request.form['dataCode']
+    print(dataCode)
+    # 以 utf-8 的编码格式打开指定文件
+
+    f = open("D:\pytest\smart_grid_web\src\components\common\MapLegend.vue",'w', encoding="utf-8")
+
+    # 输出读取到的数据
+
+    # print(f.read())
+    # renJson =f.readlines()
+    # renJson = f.read()
+    # print(renJson)
+    # 关闭文件
+    f.write(dataCode)
+
+    f.close()
+    ren = {'msg': '', 'msg_code': 200}
+    # return json.dumps(ren, ensure_ascii=False)
+    return  ren
 
 # post入参访问方式一：url格式参数
 @api.route('/article', methods=['post'])

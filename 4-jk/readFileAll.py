@@ -5,10 +5,11 @@ import pyperclip
 import os
 from loguru import logger
 
-
+# 读取指定路径下的所有文件夹的文件，并且输出“文件名称”和“文件内容”（读取的只能是可以以txt方式打开的）
 if __name__ == '__main__':
     #path = 'D:\\10-bat\\HDvideo\\static\\camera\\module2'
-    path = "D:\\4-project\\island-base-point-project\\island-management-preject\\sea-island-manage\\src\\main\\java\\com"
+    path = "D:\\0-南方数码\\5-文档\\2-系统功能说明\\5-数据融合（海洋风电厂）\\3-相关文档\\6-代码\\智慧网格\\前端"
+
     #循环读取path下的所有文件
     for root, dirs, files in os.walk(path):
         for file in files:
