@@ -11,9 +11,14 @@ def preprocess_image(image_path):
 
     # 对图像进行高斯模糊处理
     img = cv2.GaussianBlur(img, (5, 5), 0)
+    # cv2.imshow('image', img)
 
     # 对图像进行二值化处理，增强对比度(不使用增强对比，貌似效果更好)
-    # _, img = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
+    _, img = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
+
+
+    # 显示处理后的图像
+    # cv2.imshow('Processed Image', img)
 
     return Image.fromarray(img)
 
@@ -84,7 +89,7 @@ def showImageByLocation(imgName, confidence):
 
 
 # 主程序
-imgName = "D:\\test\\image.png"
+imgName = "image.png"
 confidence = 0.9
 
 print(f'图片的绝对路径: {imgName}')
