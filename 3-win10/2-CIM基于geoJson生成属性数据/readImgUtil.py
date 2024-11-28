@@ -11,7 +11,7 @@ def preprocess_image(image_path):
 
     # 对图像进行高斯模糊处理
     img = cv2.GaussianBlur(img, (5, 5), 0)
-    # cv2.imshow('image', img)
+    #
 
     # 对图像进行二值化处理，增强对比度(不使用增强对比，貌似效果更好)
     _, img = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
@@ -25,7 +25,9 @@ def preprocess_image(image_path):
 # 获取图像位置
 def get_location(imgName, confidence=0.9, showLog=True):
     # 预处理图像后再进行匹配
-    processed_img = preprocess_image(imgName)
+    # processed_img = preprocess_image(imgName)
+
+    processed_img = imgName
 
     # 转换为 PIL 图像对应的 numpy 数组格式供 pyautogui 使用
     # processed_img = np.array(processed_img)
@@ -35,10 +37,12 @@ def get_location(imgName, confidence=0.9, showLog=True):
 
     # 如果没有找到目标，调整 confidence 值进行重试
     if location is None:
-        for i in range(1, 10):
-            confidence = confidence - i * 0.1
+        for i in np.arange(0.9, 0.1, -0.05):
+            confidence = i
+            
             # location = pyautogui.locateCenterOnScreen(processed_img, confidence=confidence)
             location = pyautogui.locateOnScreen(processed_img, confidence=confidence)
+            print(f"当前置信度：{confidence} , 当前位置：{location}")
             if location is not None:
                 break
 
@@ -82,7 +86,7 @@ def showImageByLocation(imgName, confidence):
         cropped_img = screenshot.crop((left, top, left + width, top + height))
 
         # 显示裁剪后的图像
-        cropped_img.show()
+        # cropped_img.show()
     else:
         print("未找到匹配图像!")
     return location
@@ -95,10 +99,10 @@ confidence = 0.9
 print(f'图片的绝对路径: {imgName}')
 
 location, confidence = get_location(imgName, confidence)
-
+pyautogui.moveTo(location)
 if location:
     location = showImageByLocation(imgName, confidence)
-    pyautogui.moveTo(location)
+
     print(f"鼠标已移动到位置: {location}")
 
 
